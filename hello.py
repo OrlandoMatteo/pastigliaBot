@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, jsonify
 import atexit
 import os
 import json
+from bot import *
 
 app = Flask(__name__, static_url_path='')
 
@@ -85,4 +86,9 @@ def shutdown():
         client.disconnect()
 
 if __name__ == '__main__':
+    conf = json.load(open("settings.json"))
+    token = conf["telegramToken"]
+
+    # Echo bot
+    bot=EchoBot(token)
     app.run(host='0.0.0.0', port=port, debug=True)
